@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    Long id;
+    String id;
 
     @Column(nullable = false)
     String fullName;
@@ -52,4 +52,8 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private TutorProfile tutorProfile;
 
+    @OneToMany(mappedBy = "user")
+    private List<Notification> notifications;
+    @OneToMany(mappedBy = "user")
+    private List<PaymentIntent> paymentIntents;
 }

@@ -1,5 +1,7 @@
 package User.Entity;
 
+import Booking.Entity.Booking;
+import Notification.Entity.Review;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -19,7 +21,7 @@ import java.util.List;
 public class StudentProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    Long id;
+    String id;
 
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)
@@ -35,8 +37,13 @@ public class StudentProfile {
     private String notes;
 
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    LocalDateTime createdAt;
 
     @UpdateTimestamp
-    private LocalDateTime updatedAt;
+    LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "student")
+    List<Booking> bookings;
+    @OneToMany(mappedBy = "student")
+    List<Review> reviews;
 }
