@@ -1,5 +1,6 @@
 package User.Entity;
 
+import Notification.Entity.Notification;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -41,19 +43,17 @@ public class User {
     Status status;
 
     @CreationTimestamp
-    private LocalDateTime createdAt;
+     LocalDateTime createdAt;
 
     @UpdateTimestamp
-    private LocalDateTime updatedAt;
+     LocalDateTime updatedAt;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private StudentProfile studentProfile;
+     StudentProfile studentProfile;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private TutorProfile tutorProfile;
+     TutorProfile tutorProfile;
 
     @OneToMany(mappedBy = "user")
-    private List<Notification> notifications;
-    @OneToMany(mappedBy = "user")
-    private List<PaymentIntent> paymentIntents;
+     List<Notification> notifications;
 }

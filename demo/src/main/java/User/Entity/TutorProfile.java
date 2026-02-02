@@ -3,11 +3,9 @@ package User.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.checkerframework.checker.units.qual.A;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,13 +24,13 @@ public class TutorProfile {
 
      String bio;
      String education;
-     String[] certificates;
+    private List<String> certificates = new ArrayList<>();
     @Column(columnDefinition = "jsonb")
     String proofDocuments;
      Integer yearsOfExperience = 0;
      Double hourlyRateMin;
      Double hourlyRateMax;
-     String[] teachingModes;
+    private List<String> teachingModes = new ArrayList<>();
      String city;
      String district;
      Boolean verified = false;
