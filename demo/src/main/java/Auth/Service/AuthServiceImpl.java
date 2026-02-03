@@ -74,7 +74,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponse register(RegisterRequest request) {
-        boolean exist = userRepository.existByEmailOrPhone(request.getEmail(), request.getPhone());
+        boolean exist = userRepository.existsByEmailOrPhone(request.getEmail(), request.getPhone());
 
         if (exist) {
             throw new RuntimeException("Email or phone already used");

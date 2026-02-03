@@ -1,6 +1,8 @@
 package Config.Jwt;
 
+import User.DTO.Response.UserResponse;
 import User.Repository.UserRepository;
+import User.Service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
@@ -27,7 +29,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private JwtUtil jwtUtil;
 
     @Autowired
-    UserResponse userResponse;
+    UserService userService;
 
 
     @Override
