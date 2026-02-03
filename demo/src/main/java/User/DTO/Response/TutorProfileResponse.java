@@ -1,5 +1,6 @@
 package User.DTO.Response;
 
+import User.Entity.VerificationStatus;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,7 +11,6 @@ import java.util.List;
 public class TutorProfileResponse {
     private String id;
     private String userId;
-    private String fullName;
     private String bio;
     private String education;
     private List<String> certificates;
@@ -20,7 +20,13 @@ public class TutorProfileResponse {
     private List<String> teachingModes;
     private String city;
     private String district;
-    private String verificationStatus; // PENDING, VERIFIED, etc.
+
+    // Thông tin định danh (đã mask như trong tutorSanitizer.ts)
+    private String nationalIdNumber;
+    private String nationalIdFrontImageUrl;
+    private String nationalIdBackImageUrl;
+
+    private VerificationStatus verificationStatus;
     private Double averageRating;
     private Integer trustScore;
 }
