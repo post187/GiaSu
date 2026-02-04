@@ -1,25 +1,19 @@
-package User.DTO.Response;
+package User.DTO.Request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.checkerframework.checker.units.qual.A;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentProfileResponse {
-    private String id;
-    private String userId;
+public class StudentUpdateRequest {
     private String gradeLevel;
     private String goals;
     private List<String> preferredSubjects;
     private String notes;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }

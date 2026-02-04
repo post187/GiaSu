@@ -79,7 +79,7 @@ public class AuthController {
 
         response.addHeader(HttpHeaders.SET_COOKIE, deleteCookie.toString());
 
-        return ResponseEntity.ok(APIResponse.success("Log-out success"))
+        return ResponseEntity.ok(APIResponse.success("Log-out success"));
     }
 
     private void setRefreshTokenCookie(HttpServletResponse response, String refreshToken) {

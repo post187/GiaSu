@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -40,4 +41,6 @@ public class Class {
 
     @OneToOne(mappedBy = "clazz")  ClassSchedule schedule;
     @OneToMany(mappedBy = "clazz")  List<Session> sessions;
+
+    LocalDateTime createAt;
 }

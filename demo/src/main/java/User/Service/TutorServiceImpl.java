@@ -45,7 +45,7 @@ public class TutorServiceImpl implements TutorService {
     public TutorProfileResponse getMyProfile() {
         UserResponse user = (UserResponse) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user1 = userMapper.toUser(user);
-        TutorProfile tutorProfile = tutorProfileRepository.findByUser(user1);
+        TutorProfile tutorProfile = tutorProfileRepository.findByUserId(user1.getId());
         return tutorProfileMapper.toResponse(tutorProfile);
     }
 
@@ -53,7 +53,7 @@ public class TutorServiceImpl implements TutorService {
     public TutorProfileResponse updateProfile(TutorUpdateRequest request) {
         UserResponse user = (UserResponse) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user1 = userMapper.toUser(user);
-        TutorProfile tutorProfile = tutorProfileRepository.findByUser(user1);
+        TutorProfile tutorProfile = tutorProfileRepository.findByUserId(user1.getId());
 
         tutorProfile.setBio(request.getBio());
         tutorProfile.setEducation(request.getEducation());
@@ -72,8 +72,7 @@ public class TutorServiceImpl implements TutorService {
     public TutorProfileResponse submitVerification(VerificationSubmitRequest request) {
         UserResponse user = (UserResponse) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user1 = userMapper.toUser(user);
-        TutorProfile tutorProfile = tutorProfileRepository.findByUser(user1);
-
+        TutorProfile tutorProfile = tutorProfileRepository.findByUserId(user1.getId());
         tutorProfile.setNationalIdNumber(request.getNationalIdNumber());
         tutorProfile.setVerificationSubmittedAt(LocalDateTime.now());
         tutorProfile.setNationalIdFrontImageUrl(request.getNationalIdFrontImageUrl());
@@ -90,7 +89,7 @@ public class TutorServiceImpl implements TutorService {
     public List<AvailabilityResponse> updateAvailability(List<AvailabilityRequest> dtos) {
         UserResponse user = (UserResponse) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user1 = userMapper.toUser(user);
-        TutorProfile tutorProfile = tutorProfileRepository.findByUser(user1);
+        TutorProfile tutorProfile = tutorProfileRepository.findByUserId(user1.getId());
         tutorAvailabilityRepository.deleteByTutorId(user1.getId());
 
         if (dtos != null && !dtos.isEmpty()) {
