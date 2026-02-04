@@ -4,6 +4,7 @@ import Notification.Entity.Review;
 import User.Entity.StudentProfile;
 import User.Entity.TutorProfile;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Builder
 @Table(name = "bookings")
 public class Booking {
     @Id
