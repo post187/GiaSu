@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/classes")
+@RequestMapping("/classes")
 @RequiredArgsConstructor
 @Slf4j
 public class ClassController {
