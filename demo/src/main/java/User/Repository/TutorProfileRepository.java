@@ -24,4 +24,6 @@ public interface TutorProfileRepository extends JpaRepository<TutorProfile, Stri
             "AND u.status IN ('PENDING', 'ACTIVE') " +
             "ORDER BY t.createdAt ASC")
     List<TutorProfile> findPendingTutors();
+
+
 }

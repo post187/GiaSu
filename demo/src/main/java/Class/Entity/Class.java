@@ -3,10 +3,7 @@ package Class.Entity;
 import Subject.Entity.Subject;
 import User.Entity.TutorProfile;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
@@ -14,33 +11,45 @@ import java.util.List;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "classes")
 public class Class {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
-     String id;
-     String tutorId;
-     String subjectId;
+    private String id;
+    private String tutorId;
+    private String subjectId;
+    private String title;
+    private String description;
+    private String targetGrade;
+    private Double pricePerHour;
 
-    @ManyToOne @JoinColumn(name = "tutorId", insertable = false, updatable = false)
-     TutorProfile tutor;
-    @ManyToOne @JoinColumn(name = "subjectId", insertable = false, updatable = false)
-     Subject subject;
+    @Enumerated(EnumType.STRING) private LocationType locationType;
+    private String city;
+    private String district;
 
-     String title;
-     String description;
-     String targetGrade;
-     Double pricePerHour;
-    @Enumerated(EnumType.STRING)  LocationType locationType;
-     String city;
-     String district;
-    @Enumerated(EnumType.STRING)  ClassStatus status = ClassStatus.DRAFT;
-    @Enumerated(EnumType.STRING)  ClassLifecycleStatus lifecycleStatus = ClassLifecycleStatus.PENDING;
+    @Enumerated(EnumType.STRING) private ClassStatus status = ClassStatus.DRAFT;
+    @Enumerated(EnumType.STRING) private ClassLifecycleStatus lifecycleStatus = ClassLifecycleStatus.PENDING;
 
-    @OneToOne(mappedBy = "clazz")  ClassSchedule schedule;
-    @OneToMany(mappedBy = "clazz")  List<Session> sessions;
+    private Integer totalSessions = 0;
+    private Integer sessionsCompleted = 0;
+    private Boolean isDeleted = false;
 
-    LocalDateTime createAt;
-}
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    @OneToOne(mappedBy = "clazz", cascade = CascadeType.ALL)
+    private ClassSchedule schedule;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }}
