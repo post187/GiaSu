@@ -26,6 +26,14 @@ public class Class {
     private String targetGrade;
     private Double pricePerHour;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tutor_id", insertable = false, updatable = false)
+    TutorProfile tutor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subject_id", insertable = false, updatable = false)
+    Subject subject;
+
     @Enumerated(EnumType.STRING) private LocationType locationType;
     private String city;
     private String district;

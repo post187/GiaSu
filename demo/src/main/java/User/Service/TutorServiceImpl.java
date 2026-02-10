@@ -1,5 +1,6 @@
 package User.Service;
 
+import Review.Dto.Response.ReviewResponse;
 import User.DTO.Request.AvailabilityRequest;
 import User.DTO.Request.TutorUpdateRequest;
 import User.DTO.Request.UnavailabilityRequest;
@@ -14,6 +15,7 @@ import User.Mapper.UserMapper;
 import User.Repository.TutorAvailabilityRepository;
 import User.Repository.TutorProfileRepository;
 import User.Repository.UserRepository;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.ResourceNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,6 +42,8 @@ public class TutorServiceImpl implements TutorService {
 
     @Autowired
     private TutorAvailabilityRepository tutorAvailabilityRepository;
+
+    @Autowired
 
     @Override
     public TutorProfileResponse getMyProfile() {
@@ -145,8 +149,5 @@ public class TutorServiceImpl implements TutorService {
                 .build();
     }
 
-    @Override
-    public List<ReviewResponse> getTutorReviews(String tutorId) {
-        return List.of();
-    }
+
 }

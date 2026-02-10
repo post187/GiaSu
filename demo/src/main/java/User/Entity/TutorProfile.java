@@ -2,12 +2,9 @@ package User.Entity;
 
 import Booking.Entity.Booking;
 import Config.JsonConverter;
-import Notification.Entity.Review;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;

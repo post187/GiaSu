@@ -1,5 +1,6 @@
 package User.Service;
 
+import Review.Dto.Response.ReviewResponse;
 import User.DTO.Request.AvailabilityRequest;
 import User.DTO.Request.TutorUpdateRequest;
 import User.DTO.Request.UnavailabilityRequest;
@@ -19,6 +20,5 @@ public interface TutorService {
     public List<AvailabilityResponse> updateAvailability(List<AvailabilityRequest> request);
 
     public TutorProfilePublicResponse getPublicProfile(String tutorId);
-    public TrustScoreResponse getTutorTrustScore(String tutorId)
-    public List<ReviewResponse> getTutorReviews(String tutorId);
+    public TrustScoreResponse getTutorTrustScore(String tutorId);
 }

@@ -1,14 +1,14 @@
 package User.DTO.Request;
 
 import Class.Entity.ClassStatus;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Data
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClassFilterRequest {
     ClassStatus status;
     String tutorId;

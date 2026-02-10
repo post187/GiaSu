@@ -12,6 +12,4 @@ public interface AdminService {
     void approveTutor(String tutorId);
     void rejectTutor(String tutorId, String note);
 
-    // Quản lý Lớp học
-    List<ClassAdminResponse> getClasses(ClassFilterRequest filter);
 }

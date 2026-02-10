@@ -53,6 +53,7 @@ public class ClassController {
 
     // 1. GET /api/classes (List & Filter)
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<ClassResponse>> getClasses(@ModelAttribute ClassFilterRequest filter) {
         return ResponseEntity.ok(classService.getClasses(filter));
     }
@@ -134,11 +135,11 @@ public class ClassController {
         return ResponseEntity.ok(classService.getClassStudents(id, getCurrentUserId()));
     }
 
-    // 10. GET /api/classes/{id}/sessions (View Sessions - Check quyền bên trong Service)
+    // 10. GET /api/classes/{id}/sessions (View Sessions - Check quyền bên trong NotificationService)
     @GetMapping("/{id}/sessions")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ClassDetailResponse> getClassSessions(@PathVariable String id) {
-        // Service sẽ tự check: Nếu là Tutor Owner hoặc Student đã Booking thì mới trả về
+        // NotificationService sẽ tự check: Nếu là Tutor Owner hoặc Student đã Booking thì mới trả về
         return ResponseEntity.ok(classService.getClassSessions(id, getCurrentUserId(), getCurrentUserRole()));
     }
 

@@ -1,6 +1,7 @@
 package User.Service;
 
 import Class.Repository.ClassRepository;
+import Notification.Service.NotificationService;
 import User.DTO.Request.ClassFilterRequest;
 import User.DTO.Response.ClassAdminResponse;
 import User.DTO.Response.TutorPendingResponse;
@@ -14,6 +15,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +37,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private ClassRepository classRepository;
+
 
     @Autowired
     private NotificationService notificationService; // Để gửi thông báo giống createNotification trong file .ts
@@ -71,7 +77,7 @@ public class AdminServiceImpl implements AdminService {
         userRepository.save(user);
 
         // Gửi thông báo
-        notificationService.create(user.getId(), "Hồ sơ gia sư của bạn đã được phê duyệt.");
+        notificationService.createNotification(user.getId(), "Hồ sơ gia sư của bạn đã được phê duyệt.");
     }
 
     @Override
@@ -87,45 +93,38 @@ public class AdminServiceImpl implements AdminService {
         tutorProfileRepository.save(tutor);
 
         // Gửi thông báo kèm lý do
-        notificationService.create(tutor.getUser().getId(), "Hồ sơ gia sư của bạn bị từ chối: " + note);
+        notificationService.createNotification(tutor.getUser().getId(), "Hồ sơ gia sư của bạn bị từ chối: " + note);
     }
 
-    @Override
-    public List<ClassAdminResponse> getClasses(ClassFilterRequest filter) {
-        List<Class.Entity.Class> classes = classRepository.findByAdminFilter(
-                filter.getStatus(),
-                filter.getTutorId(),
-                filter.getCity(),
-                filter.getSubjectId(),
-                filter.getIncludeDeleted() != null && filter.getIncludeDeleted()
-        );
-
-        return classes.stream()
-                .map(this::mapToAdminResponse)
-                .collect(Collectors.toList());
-    }
 
     private ClassAdminResponse mapToAdminResponse(Class.Entity.Class entity) {
         if (entity == null) return null;
+
+        // Xử lý null safety cho các quan hệ Lazy
+        String tutorName = "N/A";
+        if (entity.getTutor() != null && entity.getTutor().getUser() != null) {
+            tutorName = entity.getTutor().getUser().getFullName();
+        }
+
+        String subjectName = "N/A";
+        if (entity.getSubject() != null) {
+            subjectName = entity.getSubject().getName();
+        }
 
         return ClassAdminResponse.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
                 .description(entity.getDescription())
                 .targetGrade(entity.getTargetGrade())
-                .pricePerHour(entity.getPricePerHour()) // Ánh xạ từ pricePerHour
+                .pricePerHour(entity.getPricePerHour())
                 .locationType(entity.getLocationType())
                 .city(entity.getCity())
                 .district(entity.getDistrict())
                 .status(entity.getStatus())
                 .lifecycleStatus(entity.getLifecycleStatus())
-                .createdAt(entity.getCreateAt()) // Đã sửa lỗi .get thành .getCreatedAt()
-
-                // Lấy thông tin từ các bảng liên quan (JOIN)
-                .tutorName(entity.getTutor() != null && entity.getTutor().getUser() != null
-                        ? entity.getTutor().getUser().getFullName() : "N/A")
-                .subjectName(entity.getSubject() != null
-                        ? entity.getSubject().getName() : "N/A")
+                .createdAt(entity.getCreatedAt())
+                .tutorName(tutorName)     // Dữ liệu đã có nhờ @ManyToOne
+                .subjectName(subjectName) // Dữ liệu đã có nhờ @ManyToOne
                 .build();
     }
 

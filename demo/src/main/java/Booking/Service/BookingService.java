@@ -11,4 +11,6 @@ public interface BookingService {
     void cancelBooking(String userId, String role, String bookingId, String reason);
     void confirmBooking(String userId, String bookingId);
     void completeBooking(String userId, String role, String bookingId);
+
+    void recalculateTutorStats(String tutorId);
 }

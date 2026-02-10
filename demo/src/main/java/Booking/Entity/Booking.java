@@ -1,6 +1,5 @@
 package Booking.Entity;
 
-import Notification.Entity.Review;
 import User.Entity.StudentProfile;
 import User.Entity.TutorProfile;
 import jakarta.persistence.*;
