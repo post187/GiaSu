@@ -25,9 +25,14 @@ public class Session {
      LocalDateTime scheduledEndAt;
     @Enumerated(EnumType.STRING)  SessionStatus status = SessionStatus.SCHEDULED;
 
-     LocalDateTime tutorStartConfirmedAt;
-     LocalDateTime studentStartConfirmedAt;
-     LocalDateTime startedAt;
-     LocalDateTime completedAt;
+    private LocalDateTime tutorStartConfirmedAt;
+    private LocalDateTime studentStartConfirmedAt;
+
+    private LocalDateTime tutorCompleteConfirmedAt;
+    private LocalDateTime studentCompleteConfirmedAt;
+
+    private LocalDateTime startedAt;
+    private LocalDateTime completedAt;
+    private LocalDateTime disputeFlaggedAt;
 }
 

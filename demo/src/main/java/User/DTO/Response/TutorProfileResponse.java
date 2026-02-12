@@ -28,5 +28,5 @@ public class TutorProfileResponse {
 
     private VerificationStatus verificationStatus;
     private Double averageRating;
-    private Integer trustScore;
+    private Double trustScore;
 }

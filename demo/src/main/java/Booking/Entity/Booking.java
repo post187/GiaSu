@@ -1,5 +1,6 @@
 package Booking.Entity;
 
+import Review.Entity.Review;
 import User.Entity.StudentProfile;
 import User.Entity.TutorProfile;
 import jakarta.persistence.*;
@@ -23,9 +24,8 @@ public class Booking {
     private String studentId;
     private String tutorId;
 
-    @ManyToOne
-    @JoinColumn(name = "classId", insertable = false, updatable = false)
-    private Class clazz;
+    @ManyToOne @JoinColumn(name = "classId", insertable = false, updatable = false)
+    Class.Entity.Class clazz;
 
     @ManyToOne
     @JoinColumn(name = "studentId", insertable = false, updatable = false)

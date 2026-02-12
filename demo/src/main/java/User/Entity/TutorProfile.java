@@ -2,6 +2,7 @@ package User.Entity;
 
 import Booking.Entity.Booking;
 import Config.JsonConverter;
+import Review.Entity.Review;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

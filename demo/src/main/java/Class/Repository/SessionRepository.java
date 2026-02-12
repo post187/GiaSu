@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SessionRepository extends JpaRepository<Session, String> {
@@ -52,4 +53,11 @@ public interface SessionRepository extends JpaRepository<Session, String> {
     @Modifying
     @Query("DELETE FROM Session s WHERE s.classId = :classId AND s.status = 'SCHEDULED'")
     void deleteFutureSessions(String classId);
+
+    @Query("SELECT s FROM Session s " +
+            "JOIN FETCH s.classEntity c " +
+            "JOIN FETCH c.tutor t " +
+            "LEFT JOIN FETCH c.bookings b " +
+            "WHERE s.id = :id")
+    Optional<Session> findByIdWithDetails(@Param("id") String id);
 }

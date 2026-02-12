@@ -43,4 +43,29 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
             @Param("classId") String classId,
             @Param("userId") String userId,
             @Param("status") BookingStatus status);
+
+    @Query("SELECT b FROM Booking b " +
+            "JOIN FETCH b.classEntity c " +
+            "JOIN FETCH c.subject s " +
+            "JOIN FETCH b.student st " +
+            "JOIN FETCH st.user u " +
+            "WHERE b.tutorId = :tutorId " +
+            "AND b.status IN :statuses")
+    List<Booking> findActiveBookingsForTutor(
+            @Param("tutorId") String tutorId,
+            @Param("statuses") List<BookingStatus> statuses
+    );
+
+    // Query cho Student xem lịch: Fetch Booking -> Class -> Subject & Class -> Tutor -> User
+    @Query("SELECT b FROM Booking b " +
+            "JOIN FETCH b.classEntity c " +
+            "JOIN FETCH c.subject s " +
+            "JOIN FETCH c.tutor t " +
+            "JOIN FETCH t.user u " +
+            "WHERE b.studentId = :studentId " +
+            "AND b.status IN :statuses")
+    List<Booking> findActiveBookingsForStudent(
+            @Param("studentId") String studentId,
+            @Param("statuses") List<BookingStatus> statuses
+    );
 }

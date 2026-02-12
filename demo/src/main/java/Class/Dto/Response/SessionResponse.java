@@ -13,7 +13,17 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SessionResponse {
     private String id;
-    private String startAt;
-    private String endAt;
-    private String status;
+    private String classId;
+    private LocalDateTime scheduledStartAt;
+    private LocalDateTime scheduledEndAt;
+    private SessionStatus status;
+    private LocalDateTime startedAt;
+    private LocalDateTime completedAt;
+    private LocalDateTime disputeFlaggedAt;
+
+    // Confirmation status
+    private boolean tutorStartConfirmed;
+    private boolean studentStartConfirmed;
+    private boolean tutorCompleteConfirmed;
+    private boolean studentCompleteConfirmed;
 }
